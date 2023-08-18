@@ -16,6 +16,8 @@ export default function Register() {
         await signIn('google')
     }
 
+    console.log(session)
+
     return (
         <Container>
             <Header>
