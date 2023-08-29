@@ -62,16 +62,16 @@ export function ConfirmStep() {
             </label>
 
             <label>
-                <Text size='sm'>Observações</Text>
+                <Text size='sm'>Observations</Text>
                 <TextArea {...register('observations')} />
             </label>
 
             <FormActions>
                 <Button type='button' variant='tertiary'>
-                    Cancelar
+                    Cancel
                 </Button>
                 <Button type='submit' disabled={isSubmitting}>
-                    Confirmar
+                    Confirm
                 </Button>
             </FormActions>
         </ConfirmForm>
