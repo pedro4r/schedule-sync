@@ -2,6 +2,8 @@ import dayjs from 'dayjs'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { z } from 'zod'
 import { prisma } from '../../../../lib/prisma'
+import { getGoogleOAuthToken } from '../../../../lib/google'
+import { google } from 'googleapis'
 
 export default async function handler(
     req: NextApiRequest,
@@ -63,6 +65,15 @@ export default async function handler(
             date: schedulingDate.toDate(),
             user_id: user.id,
         },
+    })
+
+    const calendar = google.calendar({
+        version: 'v3',
+        auth: await getGoogleOAuthToken(user.id),
+    })
+
+    await calendar.events.insert({
+        calendarId: 'primary',
     })
 
     return res.status(201).end()
