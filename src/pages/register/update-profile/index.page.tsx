@@ -18,6 +18,7 @@ import { getServerSession } from 'next-auth'
 import { buildNextAuthOptions } from '../../api/auth/[...nextauth].api'
 import { api } from '../../../lib/axios'
 import { useRouter } from 'next/router'
+import { NextSeo } from 'next-seo'
 
 const updateProfileSchemae = z.object({
     bio: z.string(),
@@ -46,40 +47,49 @@ export default function UpdateProfile() {
     }
 
     return (
-        <Container>
-            <Header>
-                <Heading as='strong'>Welcome to Schedule Sync</Heading>
-                <Text>
-                    We need some informations to create your profile. You may
-                    change those informations after.
-                </Text>
-                <MultiStep size={4} currentStep={4}></MultiStep>
-            </Header>
+        <>
+            <NextSeo title='Update your profile | Schedule Sync' noindex />
+            <Container>
+                <Header>
+                    <Heading as='strong'>Welcome to Schedule Sync</Heading>
+                    <Text>
+                        We need some informations to create your profile. You
+                        may change those informations after.
+                    </Text>
+                    <MultiStep size={4} currentStep={4}></MultiStep>
+                </Header>
 
-            <ProfileBox as='form' onSubmit={handleSubmit(handleUpdateProfile)}>
-                <label>
-                    <Text size='sm'>Profile image</Text>
-                    <Avatar
-                        src={session.data?.user.avatar_url}
-                        alt={session.data?.user.name}
-                    />
-                </label>
+                <ProfileBox
+                    as='form'
+                    onSubmit={handleSubmit(handleUpdateProfile)}
+                >
+                    <label>
+                        <Text size='sm'>Profile image</Text>
+                        <Avatar
+                            src={session.data?.user.avatar_url}
+                            alt={session.data?.user.name}
+                        />
+                    </label>
 
-                <label>
-                    <Text size='sm'>About you</Text>
-                    <TextArea placeholder='Your name' {...register('bio')} />
-                    <FormAnnotation size='sm'>
-                        Type a little bit about yourself. It will be shown at
-                        your personal page.
-                    </FormAnnotation>
-                </label>
+                    <label>
+                        <Text size='sm'>About you</Text>
+                        <TextArea
+                            placeholder='Your name'
+                            {...register('bio')}
+                        />
+                        <FormAnnotation size='sm'>
+                            Type a little bit about yourself. It will be shown
+                            at your personal page.
+                        </FormAnnotation>
+                    </label>
 
-                <Button type='submit' disabled={isSubmitting}>
-                    Finish
-                    <ArrowRight />
-                </Button>
-            </ProfileBox>
-        </Container>
+                    <Button type='submit' disabled={isSubmitting}>
+                        Finish
+                        <ArrowRight />
+                    </Button>
+                </ProfileBox>
+            </Container>
+        </>
     )
 }
 

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { api } from '../../lib/axios'
 import { AxiosError } from 'axios'
+import { NextSeo } from 'next-seo'
 
 const registerFormSchema = z.object({
     username: z
@@ -59,44 +60,52 @@ export default function Register() {
     }
 
     return (
-        <Container>
-            <Header>
-                <Heading as='strong'>Welcome to Schedule Sync</Heading>
-                <Text>
-                    We need some informations to create your profile. You may
-                    change those informations after.
-                </Text>
-                <MultiStep size={4} currentStep={1}></MultiStep>
-            </Header>
+        <>
+            <NextSeo title='Create your Account | Schedule Sync' />
+            <Container>
+                <Header>
+                    <Heading as='strong'>Welcome to Schedule Sync</Heading>
+                    <Text>
+                        We need some informations to create your profile. You
+                        may change those informations after.
+                    </Text>
+                    <MultiStep size={4} currentStep={1}></MultiStep>
+                </Header>
 
-            <Form as='form' onSubmit={handleSubmit(handleRegister)}>
-                <label>
-                    <Text size='sm'>Username</Text>
-                    <TextInput
-                        prefix='schedulesync.com/'
-                        placeholder='your-user'
-                        {...register('username')}
-                    />
-                </label>
+                <Form as='form' onSubmit={handleSubmit(handleRegister)}>
+                    <label>
+                        <Text size='sm'>Username</Text>
+                        <TextInput
+                            prefix='schedulesync.com/'
+                            placeholder='your-user'
+                            {...register('username')}
+                        />
+                    </label>
 
-                {errors.username && (
-                    <FormError size='sm'>{errors.username.message}</FormError>
-                )}
+                    {errors.username && (
+                        <FormError size='sm'>
+                            {errors.username.message}
+                        </FormError>
+                    )}
 
-                <label>
-                    <Text size='sm'>Full name</Text>
-                    <TextInput placeholder='Your name' {...register('name')} />
-                </label>
+                    <label>
+                        <Text size='sm'>Full name</Text>
+                        <TextInput
+                            placeholder='Your name'
+                            {...register('name')}
+                        />
+                    </label>
 
-                {errors.name && (
-                    <FormError size='sm'>{errors.name.message}</FormError>
-                )}
+                    {errors.name && (
+                        <FormError size='sm'>{errors.name.message}</FormError>
+                    )}
 
-                <Button type='submit' disabled={isSubmitting}>
-                    Next step
-                    <ArrowRight />
-                </Button>
-            </Form>
-        </Container>
+                    <Button type='submit' disabled={isSubmitting}>
+                        Next step
+                        <ArrowRight />
+                    </Button>
+                </Form>
+            </Container>
+        </>
     )
 }
