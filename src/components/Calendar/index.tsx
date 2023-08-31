@@ -34,7 +34,7 @@ interface CalendarProps {
     onDateSelected: (date: Date) => void
 }
 
-export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
+export function Calendar({ onDateSelected }: CalendarProps) {
     const [currentDate, setCurrentDate] = useState(() => {
         return dayjs().set('date', 1)
     })
@@ -66,10 +66,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
             const response = await api.get(`/users/${username}/blocked-dates`, {
                 params: {
                     year: currentDate.get('year'),
-                    month: String(currentDate.get('month') + 1).padStart(
-                        2,
-                        '0'
-                    ),
+                    month: currentDate.get('month') + 1,
                 },
             })
 
@@ -81,6 +78,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
         if (!blockedDates) {
             return []
         }
+        console.log('calendarWeeks ~ blockedDates', blockedDates)
 
         const daysInMonthArray = Array.from({
             length: currentDate.daysInMonth(),
