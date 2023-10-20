@@ -35,7 +35,6 @@ interface CalendarProps {
 }
 
 export function Calendar({ onDateSelected }: CalendarProps) {
-    console.log(new Date())
     const [currentDate, setCurrentDate] = useState(() => {
         return dayjs().set('date', 1)
     })
@@ -55,8 +54,6 @@ export function Calendar({ onDateSelected }: CalendarProps) {
     }
 
     const shortWeekDays = getWeekDays({ short: true })
-
-    // console.log(shortWeekDays)
 
     const currentMonth = currentDate.format('MMMM')
     const currentYear = currentDate.format('YYYY')

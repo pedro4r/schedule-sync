@@ -26,8 +26,6 @@ export default async function handler(
         return res.status(401).end()
     }
 
-    console.log(updateProfileBodySchema)
-
     const { bio } = updateProfileBodySchema.parse(req.body)
 
     await prisma.user.update({
